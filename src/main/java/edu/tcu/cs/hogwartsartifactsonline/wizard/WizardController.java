@@ -16,16 +16,22 @@ import java.util.stream.Collectors;
 public class WizardController {
 
     private final WizardService wizardService;
+  
+    private final WizardToWizardDtoConverter wizardToWizardDtoConverter;
 
-    private final WizardDtoToWizardConverter wizardDtoToWizardConverter; // Convert WizardDto to Wizard.
+    private final WizardDtoToWizardConverter wizardDtoToWizardConverter;
 
-    private final WizardToWizardDtoConverter wizardToWizardDtoConverter; // Convert Wizard to WizardDto.
-
-
-    public WizardController(WizardService wizardService, WizardDtoToWizardConverter wizardDtoToWizardConverter, WizardToWizardDtoConverter wizardToWizardDtoConverter) {
+    public WizardController(WizardService wizardService, WizardToWizardDtoConverter wizardToWizardDtoConverter, WizardDtoToWizardConverter wizardDtoToWizardConverter) {
         this.wizardService = wizardService;
-        this.wizardDtoToWizardConverter = wizardDtoToWizardConverter;
         this.wizardToWizardDtoConverter = wizardToWizardDtoConverter;
+        this.wizardDtoToWizardConverter = wizardDtoToWizardConverter;
+    }
+
+    @GetMapping("/{wizardId}")
+    public Result findWizardById(@PathVariable String wizardId) {
+        Wizard foundWizard = this.wizardService.findById(wizardId);
+        WizardDto wizardDto = this.wizardToWizardDtoConverter.convert(foundWizard);
+        return new Result(true, StatusCode.SUCCESS, "Find One Success", wizardDto);
     }
 
     @GetMapping
@@ -48,6 +54,7 @@ public class WizardController {
 
     @PostMapping
     public Result addWizard(@Valid @RequestBody WizardDto wizardDto) {
+        //convert wizardDto to wizard
         Wizard newWizard = this.wizardDtoToWizardConverter.convert(wizardDto);
         Wizard savedWizard = this.wizardService.save(newWizard);
         WizardDto savedWizardDto = this.wizardToWizardDtoConverter.convert(savedWizard);

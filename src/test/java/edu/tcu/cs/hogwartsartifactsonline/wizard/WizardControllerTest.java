@@ -1,5 +1,6 @@
 package edu.tcu.cs.hogwartsartifactsonline.wizard;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.tcu.cs.hogwartsartifactsonline.artifact.Artifact;
 import edu.tcu.cs.hogwartsartifactsonline.system.StatusCode;
