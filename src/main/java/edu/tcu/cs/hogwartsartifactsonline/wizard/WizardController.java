@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @RestController
 @RequestMapping("${api.endpoint.base-url}/wizards")
 public class WizardController {
 
     private final WizardService wizardService;
-
+  
     private final WizardToWizardDtoConverter wizardToWizardDtoConverter;
 
     private final WizardDtoToWizardConverter wizardDtoToWizardConverter;
@@ -37,12 +36,20 @@ public class WizardController {
 
     @GetMapping
     public Result findAllWizards() {
-        List<Wizard> foundWizards = wizardService.findAll();
-        //convert foundWizards to a list of wizardDto's
+        List<Wizard> foundWizards = this.wizardService.findAll();
+
+        // Convert foundWizards to a list of WizardDtos.
         List<WizardDto> wizardDtos = foundWizards.stream()
                 .map(this.wizardToWizardDtoConverter::convert)
                 .collect(Collectors.toList());
         return new Result(true, StatusCode.SUCCESS, "Find All Success", wizardDtos);
+    }
+
+    @GetMapping("/{wizardId}")
+    public Result findWizardById(@PathVariable Integer wizardId) {
+        Wizard foundWizard = this.wizardService.findById(wizardId);
+        WizardDto wizardDto = this.wizardToWizardDtoConverter.convert(foundWizard);
+        return new Result(true, StatusCode.SUCCESS, "Find One Success", wizardDto);
     }
 
     @PostMapping
@@ -55,7 +62,7 @@ public class WizardController {
     }
 
     @PutMapping("/{wizardId}")
-    public Result updateWizard(@PathVariable String wizardId, @Valid @RequestBody WizardDto wizardDto){
+    public Result updateWizard(@PathVariable Integer wizardId, @Valid @RequestBody WizardDto wizardDto) {
         Wizard update = this.wizardDtoToWizardConverter.convert(wizardDto);
         Wizard updatedWizard = this.wizardService.update(wizardId, update);
         WizardDto updatedWizardDto = this.wizardToWizardDtoConverter.convert(updatedWizard);
@@ -63,7 +70,7 @@ public class WizardController {
     }
 
     @DeleteMapping("/{wizardId}")
-    public Result deleteWizard(@PathVariable String wizardId){
+    public Result deleteWizard(@PathVariable Integer wizardId) {
         this.wizardService.delete(wizardId);
         return new Result(true, StatusCode.SUCCESS, "Delete Success");
     }
