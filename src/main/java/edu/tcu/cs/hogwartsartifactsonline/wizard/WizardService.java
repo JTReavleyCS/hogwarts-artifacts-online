@@ -57,7 +57,7 @@ public class WizardService {
         this.wizardRepository.deleteById(wizardId);
     }
 
-    public void assignArtifact(Integer wizardId, String artifactId){
+    public void assignArtifact(Integer wizardId, String artifactId) {
         // Find this artifact by Id from DB.
         Artifact artifactToBeAssigned = this.artifactRepository.findById(artifactId)
                 .orElseThrow(() -> new ObjectNotFoundException("artifact", artifactId));
@@ -66,4 +66,5 @@ public class WizardService {
         Wizard wizard = this.wizardRepository.findById(wizardId)
                 .orElseThrow(() -> new ObjectNotFoundException("wizard", wizardId));
 
+    }
 }
