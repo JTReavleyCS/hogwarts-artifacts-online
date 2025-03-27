@@ -22,8 +22,8 @@ public class Artifact implements Serializable {
     @ManyToOne
     private Wizard owner;
 
-    public Artifact() {
 
+    public Artifact() {
     }
 
     public String getId() {
@@ -65,7 +65,5 @@ public class Artifact implements Serializable {
     public void setOwner(Wizard owner) {
         this.owner = owner;
     }
-
-
 
 }

@@ -1,3 +1,38 @@
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:hogwarts
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#  jpa:
+#    show-sql: true
+#  security:
+#    oauth2:
+#      resource:
+#        userInfoUri: http://localhost:8080/auth/user
+#api:
+#  endpoint:
+#    base-url: /api/v1
+
+#spring:
+#  profiles:
+#    active: dev # By default, the active profile is "dev". During production, it will be replaced to "prod" due to Azure's environment variables.
+#  web:
+#    resources:
+#      add-mappings: false
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          authorities-claim-name: authorities # The claim name that stores the authorities in the JWT token (the custom claim name that the JwtAuthenticationConverter should inspect).
+#          authority-prefix: "" # The prefix that will be added to the authorities in the JWT token. The default one is "SCOPE_". In this project, you need to change it to empty, that is, no prefix!
+#  http:
+#    client:
+#      factory: jdk # Use the JdkClientHttpRequestFactory in RestClient.Builder to create the RestClient bean.
+#api:
+#  endpoint:
+#    base-url: /api/v1
+
 spring:
   datasource:
     url: jdbc:h2:mem:hogwarts
