@@ -15,6 +15,7 @@ public class JwtProvider {
 
     private final JwtEncoder jwtEncoder;
 
+
     public JwtProvider(JwtEncoder jwtEncoder) {
         this.jwtEncoder = jwtEncoder;
     }

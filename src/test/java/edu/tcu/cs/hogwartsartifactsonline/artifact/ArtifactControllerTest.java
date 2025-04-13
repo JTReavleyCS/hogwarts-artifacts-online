@@ -44,7 +44,7 @@ class ArtifactControllerTest {
 
     List<Artifact> artifacts;
 
-    @Value("${api.endpoint.base-url}") // Spring will go to application.yml to find the value and inject into this field.
+    @Value("${api.endpoint.base-url}") // Spring will go to application-dev.yml to find the value and inject into this field.
     String baseUrl;
 
 
